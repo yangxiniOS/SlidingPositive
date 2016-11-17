@@ -7,6 +7,7 @@
 //
 
 #import "MKShufflingView.h"
+#import "UIButton+WebCache.h"
 
 
 
@@ -38,20 +39,23 @@
         self.topButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         self.topButton.tag = 1;
         [_topButton addTarget:self action:@selector(handleAction:) forControlEvents:(UIControlEventTouchUpInside)];
+         _topButton.adjustsImageWhenHighlighted = NO;
     }
     return _topButton;
 }
 - (UIButton *)bottomButton{
     if (!_bottomButton) {
         self.bottomButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        self.bottomButton.tag = 2;
+        _bottomButton.tag = 2;
+        _bottomButton.adjustsImageWhenHighlighted = NO;
     }
     return _bottomButton;
 }
 - (UIButton *)upButton{
     if (!_upButton) {
         self.upButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        self.upButton.tag = 3;
+        _upButton.tag = 3;
+        _upButton.adjustsImageWhenHighlighted = NO;
     }
     return _upButton;
 }
@@ -96,9 +100,16 @@
         [self.bottomButton setTitle:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]) forState:(UIControlStateNormal)];
         [self.upButton setTitle:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]) forState:(UIControlStateNormal)];
     }else{
-        [self.topButton setImage:[UIImage imageNamed:self.myTextArray[self.selected]] forState:(UIControlStateNormal)];
-        [self.bottomButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1])] forState:(UIControlStateNormal)];
-        [self.upButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1])] forState:(UIControlStateNormal)];
+        if (self.isUrlImage) {
+            [self.topButton sd_setImageWithURL:[NSURL URLWithString:self.myTextArray[self.selected]] forState:(UIControlStateNormal) placeholderImage:self.placeholderImage];
+            [self.bottomButton sd_setImageWithURL:[NSURL URLWithString:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1])] forState:(UIControlStateNormal)placeholderImage:self.placeholderImage];
+            [self.upButton sd_setImageWithURL:[NSURL URLWithString: self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1])] forState:(UIControlStateNormal)placeholderImage:self.placeholderImage];
+            
+        }else{
+            [self.topButton setImage:[UIImage imageNamed:self.myTextArray[self.selected]] forState:(UIControlStateNormal)];
+            [self.bottomButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1])] forState:(UIControlStateNormal)];
+            [self.upButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1])] forState:(UIControlStateNormal)];
+        }
     }
 }
 - (void)addMyGestureRecognizer{

@@ -55,6 +55,14 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  */
 @property (nonatomic,strong)NSArray *textArray;
 /**
+ *  传入的是图片地址 如果是网络图片必须设置为yes，依赖第三方SDWebImage 默认为非为加载本地图片
+ */
+@property (nonatomic,assign)BOOL isUrlImage;
+/**
+ *  设置请求图片展位图
+ */
+@property (nonatomic,strong)UIImage *placeholderImage;
+/**
  *  是否自动滚动 默认开启滚动
  */
 @property (nonatomic,assign) BOOL isAutomatic;
