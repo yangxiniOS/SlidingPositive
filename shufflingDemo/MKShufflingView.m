@@ -103,6 +103,7 @@
         self.myPageControl.mypageStyle = self.mypageStyle;
         self.myPageControl.textArray = self.textArray;
         self.myPageControl.current = self.selected;
+        self.myPageControl.titleArray = self.titleArray;
         __weak typeof(self) weakSelf = self;
         self.myPageControl.myFunction = ^(BOOL isSequence){
             [weakSelf.timer invalidate];
@@ -308,6 +309,8 @@
 @property (nonatomic,strong)NSLayoutConstraint *myLayoutConstraint1;
 
 @property (nonatomic,strong)NSLayoutConstraint *myLayoutConstraint2;
+
+@property (nonatomic,strong)UILabel *titleLabel;
 @end
 
 
@@ -408,7 +411,6 @@
         [self.dotArray addObject:button];
         
         [button layoutIfNeeded];
-       
     }
     NSMutableArray *a = [NSMutableArray array];
     for (NSInteger i = self.dotArray.count - 1; i >= 0; i--) {
@@ -422,6 +424,7 @@
         if (self.mypageStyle.myDotStyle == MKDotStyleLocationCenter) {
             self.myLayoutConstraint1.constant = -((self.textArray.count - 1) * self.mypageStyle.styleSize.width + (self.textArray.count - 1)* self.mypageStyle.spacingValue)/2;
         }
+        [self addTitileView];
     }
     if (self.mypageStyle.myPageStyle == MKpageStyleLocationRight
         ||self.mypageStyle.myPageStyle == MKpageStyleLocationLeft) {
@@ -430,7 +433,29 @@
         }
     }
 }
-
+- (void)addTitileView{
+    if (self.titleArray.count) {
+        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.titleLabel.textColor = self.mypageStyle.titleColor;
+        [self addSubview:self.titleLabel];
+        if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
+            ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
+            if (self.mypageStyle.myDotStyle == MKDotStyleLocationLeft) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[titleLabel]-0-|" options:0 metrics:nil views:@{@"titleLabel":self.titleLabel}]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[button]-0-[titleLabel]-border-|" options:0 metrics:@{@"border":@(self.mypageStyle.border)} views:@{@"titleLabel":self.titleLabel,@"button":self.dotArray.lastObject}]];
+                [self.titleLabel layoutIfNeeded];
+                self.titleLabel.textAlignment = NSTextAlignmentRight;
+            }
+            if (self.mypageStyle.myDotStyle == MKDotStyleLocationRight) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[titleLabel]-0-|" options:0 metrics:nil views:@{@"titleLabel":self.titleLabel}]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-border-[titleLabel]-0-[button]" options:0 metrics:@{@"border":@(self.mypageStyle.border)} views:@{@"titleLabel":self.titleLabel,@"button":self.dotArray.firstObject}]];
+                [self.titleLabel layoutIfNeeded];
+                self.titleLabel.textAlignment = NSTextAlignmentLeft;
+            }
+        }
+    }
+}
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"current"]) {
         NSInteger current =[[change objectForKey:@"new"] integerValue];
@@ -438,9 +463,7 @@
     }
 }
 - (void)updateCurrentDot:(NSInteger)current{
-    
-    
-    for (NSInteger i = 0; i < self.dotArray.count; i++) {
+   for (NSInteger i = 0; i < self.dotArray.count; i++) {
         UIButton * button = (UIButton *)self.dotArray[i];
         if (i == current) {
             //当前的和传入的一样
@@ -465,6 +488,9 @@
             }
         }
     }
+    if (self.titleLabel) {
+        self.titleLabel.text = self.titleArray[current];
+    }
 }
 
 
@@ -473,11 +499,12 @@
     NSSet *mytouch = [event allTouches];
     UITouch *t = [mytouch anyObject];
     CGPoint point = [touch locationInView:[t view]];
+    UIButton *but = (UIButton *)self.dotArray[self.dotArray.count/2];
     if (self.mypageStyle.isClick) {
         if (_myFunction) {
             if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
                 ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
-                if (point.x > self.bounds.size.width/2) {
+                if (point.x > but.frame.origin.x) {
                    self.myFunction(YES);
                 }else {
                     self.myFunction(NO);
@@ -485,7 +512,7 @@
             }
             if (self.mypageStyle.myPageStyle == MKpageStyleLocationRight
                 ||self.mypageStyle.myPageStyle == MKpageStyleLocationLeft) {
-                if (point.y > self.bounds.size.height/2) {
+                if (point.y >  but.frame.origin.y) {
                     self.myFunction(YES);
                 }else {
                     self.myFunction(NO);

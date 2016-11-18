@@ -56,6 +56,10 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  */
 @property (nonatomic,strong)NSArray *textArray;
 /**
+ *  显示文本 目前只支持pageControl 居上下且原点局左右 如果该数组不为空则判断需要显示文本指示器
+ */
+@property (nonatomic,strong)NSArray *titleArray;
+/**
  *  传入的是图片地址 如果是网络图片必须设置为yes，依赖第三方SDWebImage 默认为非为加载本地图片
  */
 @property (nonatomic,assign) BOOL isUrlImage;
@@ -130,6 +134,8 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
 @property (nonatomic,strong)MKpageStyle *mypageStyle;
 
 @property (nonatomic,strong)NSArray *textArray;
+
+@property (nonatomic,strong)NSArray *titleArray;
 
 @property (nonatomic,assign)NSInteger current;
 
