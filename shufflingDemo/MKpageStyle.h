@@ -83,6 +83,10 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
  */
 @property (nonatomic,assign)CGFloat roundedCorners;
 /**
+ *  文本距离边界多少 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
+ */
+@property (nonatomic,assign)CGFloat border;
+/**
  *  圆点之间的间距
  */
 @property (nonatomic,assign)CGFloat spacingValue;
@@ -142,4 +146,11 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
  *  是否支持点击切换 默认支持
  */
 @property (nonatomic,assign)BOOL isClick;
+/**
+ *  文本颜色 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
+ */
+@property (nonatomic,strong)UIColor *titleColor;
+
+
+
 @end

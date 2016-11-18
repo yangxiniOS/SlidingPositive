@@ -31,6 +31,10 @@
      */
     self.roundedCorners = 5.f;
     /**
+     *  文本距离边界多少 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
+     */
+    self.border = 12;
+    /**
      *  圆点之间的间距
      */
     self.spacingValue = 10;
@@ -82,5 +86,9 @@
      *  是否支持点击切换
      */
     self.isClick = YES;
+    /**
+     *  文本颜色 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
+     */
+    self.titleColor = [UIColor whiteColor];
 }
 @end

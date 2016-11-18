@@ -24,6 +24,7 @@
     [self.view addSubview:self.shufflingView];
     self.shufflingView.backgroundColor = [UIColor redColor];
     self.shufflingView.textArray =@[@"http://f.hiphotos.baidu.com/zhidao/pic/item/810a19d8bc3eb1357689ea10a71ea8d3fc1f44ca.jpg",@"http://imgsrc.baidu.com/forum/w%3D580/sign=fcae01763b87e9504217f3642039531b/2f2eb9389b504fc29fccbeb0e4dde71191ef6df7.jpg",@"http://d.hiphotos.baidu.com/zhidao/pic/item/4ec2d5628535e5dd5c955af875c6a7efce1b6258.jpg",@"http://c.hiphotos.baidu.com/zhidao/pic/item/95eef01f3a292df59ac3846ebc315c6034a8734c.jpg",@"http://img.hb.aicdn.com/c6c4f5ebe51328518bdcad6dfe3ee6530ff75e1d132be-FPDHXd_fw580"];
+    self.shufflingView.titleArray = @[@"恒星“开普勒11145123”距离地球大约5000光年，体积大约是太阳的两倍多。这是一颗近乎完美的圆球体，其赤道半径与两极方向半径仅相差3公里",@"fdsfds",@"fdsnjdsn",@"fdnjsnejwn",@"nfdksjnds"];
     self.shufflingView.MYshufflingViewShowstyle = shufflingViewShowstyleImageView;
     self.shufflingView.isUrlImage = YES;
     self.shufflingView.selected = 3;
@@ -32,8 +33,8 @@
     MKpageStyle *myStytle = [[MKpageStyle alloc]init];
     myStytle.myPageStyle = MKpageStyleLocationBottom;
     myStytle.pageHeight = 30;
-    myStytle.myDotStyle = MKDotStyleLocationRight;
-    myStytle.backGroundColor = [UIColor clearColor];
+    myStytle.myDotStyle = MKDotStyleLocationLeft;
+    myStytle.backGroundColor = [UIColor colorWithWhite:0 alpha:.3f];
     myStytle.styleTextColor = [UIColor whiteColor];
     myStytle.currentTextColor = [UIColor greenColor];
     myStytle.myDotFillStyle = MKDotStyleText;
