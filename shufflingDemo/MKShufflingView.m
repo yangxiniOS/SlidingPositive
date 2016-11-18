@@ -405,8 +405,17 @@
                 [self addConstraint:layoutConstraintBT];
             }
         }
-        [button layoutIfNeeded];
         [self.dotArray addObject:button];
+        
+        [button layoutIfNeeded];
+       
+    }
+    NSMutableArray *a = [NSMutableArray array];
+    for (NSInteger i = self.dotArray.count - 1; i >= 0; i--) {
+        [a addObject:self.dotArray[i]];
+    }
+    if (self.mypageStyle.myDotStyle == MKDotStyleLocationRight ) {
+        self.dotArray = a;
     }
     if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
         ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
@@ -429,12 +438,13 @@
     }
 }
 - (void)updateCurrentDot:(NSInteger)current{
+    
+    
     for (NSInteger i = 0; i < self.dotArray.count; i++) {
         UIButton * button = (UIButton *)self.dotArray[i];
         if (i == current) {
             //当前的和传入的一样
             button.backgroundColor = self.mypageStyle.currentColor;
-            [button setImage:self.mypageStyle.currentImage forState:(UIControlStateNormal)];
             button.bounds = CGRectMake(0, 0, self.mypageStyle.currentSize.width, self.mypageStyle.currentSize.height);
             button.layer.cornerRadius = self.mypageStyle.currentSize.width/2;
             if (self.mypageStyle.myDotFillStyle == MKDotStyleText) {
@@ -445,7 +455,6 @@
             }
         }else{
             button.backgroundColor = self.mypageStyle.styleColor;
-            [button setImage:self.mypageStyle.styleImage forState:(UIControlStateNormal)];
             button.bounds = CGRectMake(0, 0, self.mypageStyle.styleSize.width, self.mypageStyle.styleSize.height);
             button.layer.cornerRadius = self.mypageStyle.styleSize.width/2;
             if (self.mypageStyle.myDotFillStyle == MKDotStyleText) {
