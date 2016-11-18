@@ -1,5 +1,8 @@
 # SlidingPositive
 一个强大的轮播实现。
+
+
+
 ![image](https://github.com/yangxiniOS/SlidingPositive/blob/master/shufflingDemo/演示2.gif)
 
 ![image](https://github.com/yangxiniOS/SlidingPositive/blob/8d865fc0f785ae5d5ea82a6d5341e44a5849c23a/shufflingDemo/演示.gif)
