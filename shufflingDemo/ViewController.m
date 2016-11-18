@@ -28,8 +28,18 @@
     self.shufflingView.isUrlImage = YES;
     self.shufflingView.selected = 3;
     self.shufflingView.isAutomatic = YES;
-    self.shufflingView.MYslidingDirection = slidingDirectionV;
-    self.shufflingView.MYslidingPositiveOrNegative = slidingNegative;
+    self.shufflingView.isShowMyPage = YES;
+    MKpageStyle *myStytle = [[MKpageStyle alloc]init];
+    myStytle.myPageStyle = MKpageStyleLocationBottom;
+    myStytle.pageHeight = 30;
+    myStytle.myDotStyle = MKDotStyleLocationCenter;
+    myStytle.backGroundColor = [UIColor clearColor];
+    myStytle.styleTextColor = [UIColor whiteColor];
+    myStytle.currentTextColor = [UIColor greenColor];
+    myStytle.myDotFillStyle = MKDotStyleText;
+    self.shufflingView.mypageStyle = myStytle;
+    self.shufflingView.MYslidingDirection = slidingDirectionH;
+    self.shufflingView.MYslidingPositiveOrNegative = slidingPositive;
     [self.shufflingView initShufflingView:^(NSInteger selected) {
         NSLog(@"%ld",selected);
     }];

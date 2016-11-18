@@ -28,6 +28,8 @@
 @property (nonatomic,strong)NSMutableArray *myTextArray;
 
 @property (nonatomic,copy)void (^myFuntion)(NSInteger selected);
+
+@property (nonatomic,strong)MKMyPageControl *myPageControl;
 @end
 
 
@@ -37,7 +39,7 @@
 - (UIButton *)topButton{
     if (!_topButton) {
         self.topButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        self.topButton.tag = 1;
+         _topButton.tag = 1;
         [_topButton addTarget:self action:@selector(handleAction:) forControlEvents:(UIControlEventTouchUpInside)];
          _topButton.adjustsImageWhenHighlighted = NO;
     }
@@ -65,6 +67,7 @@
     self.myTextArray = [NSMutableArray array];
     [self LayoutOfTheData];
     [self addMySubview];
+    [self addMyPageControl];
     [self showView];
     [self addtimer];
     [self addMyGestureRecognizer];
@@ -72,7 +75,9 @@
         self.myFuntion = completion;
     }
 }
+
 - (void)updateMyShufflingView{
+    
     [self removeMyConstraints];
     [self LayoutOfTheData];
     [self addMySubview];
@@ -87,6 +92,53 @@
      self.topButton = nil;
      self.upButton = nil;
     [self setNeedsLayout];
+}
+- (void)addMyPageControl{
+    if (self.isShowMyPage) {
+        self.myPageControl  = [[MKMyPageControl alloc]init];
+        if (!self.mypageStyle) {
+            self.mypageStyle = [[MKpageStyle alloc]init];
+        }
+        self.myPageControl.mypageStyle = self.mypageStyle;
+        self.myPageControl.textArray = self.textArray;
+        self.myPageControl.current = self.selected;
+        __weak typeof(self) weakSelf = self;
+        self.myPageControl.myFunction = ^(BOOL isSequence){
+            [weakSelf.timer invalidate];
+            if (isSequence) {
+                weakSelf.selected ++;
+                [weakSelf subviewSliding:YES];
+            }else{
+                weakSelf.selected --;
+                [weakSelf subviewSliding:NO];
+            }
+        };
+        [self addSubview:self.myPageControl];
+        [self addMyPageControlDetails];
+        [self.myPageControl initMKMyPageControlView];
+    }else{
+        if (!self.isShowMyPage) {
+            [self.myPageControl removeFromSuperview];
+            self.myPageControl = nil;
+            [self setNeedsLayout];
+        }
+    }
+}
+- (void)addMyPageControlDetails{
+    self.myPageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom || self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
+        NSArray *array = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[page]-0-|" options:0 metrics:nil views:@{@"page":self.myPageControl}];
+        NSArray *array1 = [NSLayoutConstraint constraintsWithVisualFormat:self.mypageStyle.myPageStyle == MKpageStyleLocationBottom ? @"V:[page(==height)]-distance-|":@"V:|-distance-[page(==height)]" options:0 metrics:@{@"height":@(self.mypageStyle.pageHeight),@"distance":@(self.mypageStyle.distance)} views:@{@"page":self.myPageControl}];
+        [self addConstraints:array];
+        [self addConstraints:array1];
+    }
+    if (self.mypageStyle.myPageStyle == MKpageStyleLocationLeft || self.mypageStyle.myPageStyle == MKpageStyleLocationRight) {
+        NSArray *array = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[page]-0-|" options:0 metrics:nil views:@{@"page":self.myPageControl}];
+        NSArray *array1 = [NSLayoutConstraint constraintsWithVisualFormat:self.mypageStyle.myPageStyle == MKpageStyleLocationLeft?@"H:|-distance-[page(==height)]":@"H:[page(==height)]-distance-|"  options:0 metrics:@{@"height":@(self.mypageStyle.pageHeight),@"distance":@(self.mypageStyle.distance)} views:@{@"page":self.myPageControl}];
+        [self addConstraints:array];
+        [self addConstraints:array1];
+    }
+    [self.myPageControl layoutIfNeeded];
 }
 - (void)handleAction:(UIButton *)sender{
     self.myFuntion(self.MYslidingPositiveOrNegative == slidingPositive ?self.selected:[self.myTextArray indexOfObject:self.textArray[self.selected]]);
@@ -177,6 +229,9 @@
         if (self.slidingOverBlock) {
             self.slidingOverBlock(self.selected);
         }
+        if (self.isShowMyPage) {
+           self.myPageControl.current = self.selected;
+        }
         [self layoutIfNeeded];
         [self addtimer];
     }];
@@ -230,3 +285,208 @@
 
 
 @end
+
+
+
+
+//------------------------------------华丽丽的分割线--------------------------------------------
+
+
+
+
+
+
+@interface MKMyPageControl ()
+
+
+
+
+@property (nonatomic,strong)NSMutableArray *dotArray;
+
+
+@property (nonatomic,strong)NSLayoutConstraint *myLayoutConstraint1;
+
+@property (nonatomic,strong)NSLayoutConstraint *myLayoutConstraint2;
+@end
+
+
+
+@implementation MKMyPageControl
+- (void)dealloc{
+    [self removeObserver:self forKeyPath:@"current"];
+}
+
+- (void)initMKMyPageControlView{
+    self.backgroundColor = self.mypageStyle.backGroundColor;
+    self.dotArray = [NSMutableArray array];
+    [self addMySubview];
+    [self updateCurrentDot:self.current];
+    [self addObserver:self forKeyPath:@"current" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+}
+
+- (void)addMySubview{
+    NSLayoutConstraint *layoutConstraintHV;
+    NSLayoutConstraint *layoutConstraintBT;
+    for (NSInteger i = 0; i < self.textArray.count; i++) {
+        UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        button.adjustsImageWhenHighlighted = NO;
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        button.layer.masksToBounds = YES;
+        button.userInteractionEnabled = NO;
+        button.enabled = YES;
+        button.backgroundColor = self.mypageStyle.styleColor;
+        [self addSubview:button];
+        NSLayoutConstraint *la1 =  [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:self.mypageStyle.styleSize.width];
+        la1.identifier = @"width";
+        NSLayoutConstraint *la2 =  [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:self.mypageStyle.styleSize.height];
+        la1.identifier = @"height";
+        if (i == self.current) {
+            la1.constant = self.mypageStyle.currentSize.width;
+            la2.constant = self.mypageStyle.currentSize.height;
+            button.layer.cornerRadius = self.mypageStyle.currentSize.width/2;
+        }
+        [self addConstraints:@[la1,la2]];
+        if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
+            ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+            UIView *v1 = layoutConstraintHV.firstItem;
+            if (!v1) {
+                switch (self.mypageStyle.myDotStyle) {
+                    case MKDotStyleLocationCenter:
+                       layoutConstraintHV = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+                        break;
+                    case MKDotStyleLocationLeft:
+                        layoutConstraintHV = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:self.mypageStyle.constant];
+                        break;
+                    case MKDotStyleLocationRight:
+                        layoutConstraintHV = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-self.mypageStyle.constant];
+                        break;
+                    default:
+                        break;
+                }
+                self.myLayoutConstraint1 = layoutConstraintHV;
+                [self addConstraint:self.myLayoutConstraint1];
+            }else{
+                if (self.mypageStyle.myDotStyle == MKDotStyleLocationRight) {
+                  layoutConstraintHV = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeLeft multiplier:1 constant:-self.mypageStyle.spacingValue];
+                }else{
+                   layoutConstraintHV = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeRight multiplier:1 constant:self.mypageStyle.spacingValue];
+                }
+                [self addConstraint:layoutConstraintHV];
+            }
+        }
+        if (self.mypageStyle.myPageStyle == MKpageStyleLocationLeft
+            ||self.mypageStyle.myPageStyle == MKpageStyleLocationRight) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+            UIView *v1 = layoutConstraintBT.firstItem;
+            if (!v1) {
+                switch (self.mypageStyle.myDotStyle) {
+                    case MKDotStyleLocationCenter:
+                        layoutConstraintBT = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+                        break;
+                    case MKDotStyleLocationLeft:
+                        layoutConstraintBT = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:self.mypageStyle.constant];
+                        break;
+                    case MKDotStyleLocationRight:
+                        layoutConstraintBT = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-self.mypageStyle.constant];
+                        break;
+                    default:
+                        break;
+                }
+                self.myLayoutConstraint2 = layoutConstraintBT;
+                [self addConstraint:self.myLayoutConstraint2];
+            }else{
+                if (self.mypageStyle.myDotStyle == MKDotStyleLocationRight) {
+                    layoutConstraintBT = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeTop multiplier:1 constant:-self.mypageStyle.spacingValue];
+                }else{
+                    layoutConstraintBT = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:v1 attribute:NSLayoutAttributeBottom multiplier:1 constant:self.mypageStyle.spacingValue];
+                }
+                [self addConstraint:layoutConstraintBT];
+            }
+        }
+        [button layoutIfNeeded];
+        [self.dotArray addObject:button];
+    }
+    if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
+        ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
+        if (self.mypageStyle.myDotStyle == MKDotStyleLocationCenter) {
+            self.myLayoutConstraint1.constant = -((self.textArray.count - 1) * self.mypageStyle.styleSize.width + (self.textArray.count - 1)* self.mypageStyle.spacingValue)/2;
+        }
+    }
+    if (self.mypageStyle.myPageStyle == MKpageStyleLocationRight
+        ||self.mypageStyle.myPageStyle == MKpageStyleLocationLeft) {
+        if (self.mypageStyle.myDotStyle == MKDotStyleLocationCenter) {
+            self.myLayoutConstraint2.constant = -((self.textArray.count - 1) * self.mypageStyle.styleSize.height + (self.textArray.count - 1) * self.mypageStyle.spacingValue)/2;
+        }
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"current"]) {
+        NSInteger current =[[change objectForKey:@"new"] integerValue];
+        [self updateCurrentDot:current];
+    }
+}
+- (void)updateCurrentDot:(NSInteger)current{
+    for (NSInteger i = 0; i < self.dotArray.count; i++) {
+        UIButton * button = (UIButton *)self.dotArray[i];
+        if (i == current) {
+            //当前的和传入的一样
+            button.backgroundColor = self.mypageStyle.currentColor;
+            [button setImage:self.mypageStyle.currentImage forState:(UIControlStateNormal)];
+            button.bounds = CGRectMake(0, 0, self.mypageStyle.currentSize.width, self.mypageStyle.currentSize.height);
+            button.layer.cornerRadius = self.mypageStyle.currentSize.width/2;
+            if (self.mypageStyle.myDotFillStyle == MKDotStyleText) {
+                [button setTitle:[NSString stringWithFormat:@"%ld",i] forState:(UIControlStateNormal)];
+                [button setTitleColor:self.mypageStyle.currentTextColor forState:(UIControlStateNormal)];
+            }if (self.mypageStyle.myDotFillStyle == MKDotStyleImage) {
+                [button setImage:self.mypageStyle.currentImage forState:(UIControlStateNormal)];
+            }
+        }else{
+            button.backgroundColor = self.mypageStyle.styleColor;
+            [button setImage:self.mypageStyle.styleImage forState:(UIControlStateNormal)];
+            button.bounds = CGRectMake(0, 0, self.mypageStyle.styleSize.width, self.mypageStyle.styleSize.height);
+            button.layer.cornerRadius = self.mypageStyle.styleSize.width/2;
+            if (self.mypageStyle.myDotFillStyle == MKDotStyleText) {
+                [button setTitle:[NSString stringWithFormat:@"%ld",i] forState:(UIControlStateNormal)];
+                [button setTitleColor:self.mypageStyle.styleTextColor forState:(UIControlStateNormal)];
+            }if (self.mypageStyle.myDotFillStyle == MKDotStyleImage) {
+                [button setImage:self.mypageStyle.styleImage forState:(UIControlStateNormal)];
+            }
+        }
+    }
+}
+
+
+
+- (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event{
+    NSSet *mytouch = [event allTouches];
+    UITouch *t = [mytouch anyObject];
+    CGPoint point = [touch locationInView:[t view]];
+    if (self.mypageStyle.isClick) {
+        if (_myFunction) {
+            if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
+                ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
+                if (point.x > self.bounds.size.width/2) {
+                   self.myFunction(YES);
+                }else {
+                    self.myFunction(NO);
+                }
+            }
+            if (self.mypageStyle.myPageStyle == MKpageStyleLocationRight
+                ||self.mypageStyle.myPageStyle == MKpageStyleLocationLeft) {
+                if (point.y > self.bounds.size.height/2) {
+                    self.myFunction(YES);
+                }else {
+                    self.myFunction(NO);
+                }
+            }
+        }
+    }
+}
+
+
+
+@end
+
+

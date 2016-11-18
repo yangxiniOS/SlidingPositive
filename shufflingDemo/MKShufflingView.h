@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MKpageStyle.h"
 
 /**
  *  展示样式
@@ -57,7 +58,7 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
 /**
  *  传入的是图片地址 如果是网络图片必须设置为yes，依赖第三方SDWebImage 默认为非为加载本地图片
  */
-@property (nonatomic,assign)BOOL isUrlImage;
+@property (nonatomic,assign) BOOL isUrlImage;
 /**
  *  设置请求图片展位图
  */
@@ -75,11 +76,19 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  */
 @property (nonatomic,assign)NSInteger countdown;
 /**
+ *  样式（如果想要PageControl必传)
+ */
+@property (nonatomic,strong)MKpageStyle *mypageStyle;
+/**
+ *  是否需要PageControl（如果想要PageControl必传yes 默认为no)
+ */
+@property (nonatomic,assign) BOOL isShowMyPage;
+/**
  *  滑动方向
  */
 @property (nonatomic,assign)slidingDirection MYslidingDirection;
 /**
- *  图片样式
+ *  内容样式
  */
 @property (nonatomic,assign)shufflingViewShowstyle MYshufflingViewShowstyle;
 /**
@@ -104,4 +113,26 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  *  更新显示
  */
 - (void)updateMyShufflingView;
+@end
+
+
+
+
+
+
+
+/**
+ *  自定义PageControl
+ */
+@interface MKMyPageControl : UIControl
+
+
+@property (nonatomic,strong)MKpageStyle *mypageStyle;
+
+@property (nonatomic,strong)NSArray *textArray;
+
+@property (nonatomic,assign)NSInteger current;
+
+@property (nonatomic,copy)void (^myFunction)(BOOL isSequence);
+- (void)initMKMyPageControlView;
 @end

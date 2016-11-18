@@ -31,6 +31,7 @@
 		0D2F47111DDDEE390075AF07 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47001DDDEE390075AF07 /* UIImageView+HighlightedWebCache.m */; };
 		0D2F47121DDDEE390075AF07 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47021DDDEE390075AF07 /* UIImageView+WebCache.m */; };
 		0D2F47131DDDEE390075AF07 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47041DDDEE390075AF07 /* UIView+WebCacheOperation.m */; };
+		0D2F47161DDE96640075AF07 /* MKpageStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47151DDE96640075AF07 /* MKpageStyle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,8 @@
 		0D2F47021DDDEE390075AF07 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		0D2F47031DDDEE390075AF07 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		0D2F47041DDDEE390075AF07 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		0D2F47141DDE96640075AF07 /* MKpageStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKpageStyle.h; sourceTree = "<group>"; };
+		0D2F47151DDE96640075AF07 /* MKpageStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKpageStyle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 			children = (
 				0D2F46A01DDDAB7A0075AF07 /* MKShufflingView.h */,
 				0D2F46A11DDDAB7A0075AF07 /* MKShufflingView.m */,
+				0D2F47141DDE96640075AF07 /* MKpageStyle.h */,
+				0D2F47151DDE96640075AF07 /* MKpageStyle.m */,
 				0D2F467E1DDDAB4D0075AF07 /* AppDelegate.h */,
 				0D2F467F1DDDAB4D0075AF07 /* AppDelegate.m */,
 				0D2F46811DDDAB4D0075AF07 /* ViewController.h */,
@@ -311,6 +316,7 @@
 				0D2F47091DDDEE390075AF07 /* SDWebImageDownloader.m in Sources */,
 				0D2F47101DDDEE390075AF07 /* UIImage+WebP.m in Sources */,
 				0D2F47131DDDEE390075AF07 /* UIView+WebCacheOperation.m in Sources */,
+				0D2F47161DDE96640075AF07 /* MKpageStyle.m in Sources */,
 				0D2F47061DDDEE390075AF07 /* SDImageCache.m in Sources */,
 				0D2F46831DDDAB4D0075AF07 /* ViewController.m in Sources */,
 				0D2F46A21DDDAB7A0075AF07 /* MKShufflingView.m in Sources */,
