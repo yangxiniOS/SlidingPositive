@@ -81,6 +81,7 @@
     [self removeMyConstraints];
     [self LayoutOfTheData];
     [self addMySubview];
+    [self addMyPageControl];
     [self showView];
     [self addtimer];
 }
