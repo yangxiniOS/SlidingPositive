@@ -5,9 +5,11 @@
 
 
 支持图片轮播，文字轮播，正反序，水平竖直方向只需要赋值调用即可，即可实现无限轮播
+
 应广大使用者需求现添加如下功能
+
 新增网络图片
-高度自定义PageControl 支持数字显示，图片显示，所处位置，点击事件等等，随君设置
+高度自定义PageControl  支持数字显示，图片显示，可以设置在轮播的任何位置，可以设置任何图片，点击切换等等，随君设置
 如何调用
 
      self.shufflingView  = [[MKShufflingView alloc]initWithFrame:CGRectMake(0, 100, self.view.bounds.size.width, 250)];
