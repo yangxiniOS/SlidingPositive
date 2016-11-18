@@ -25,7 +25,7 @@
     /**
      *  圆点大小
      */
-    self.styleSize = CGSizeMake(15, 15);
+    self.styleSize = CGSizeMake(10, 10);
     /**
      *  圆角大小
      */
@@ -37,7 +37,7 @@
     /**
      *  选中的圆点大小
      */
-    self.currentSize = CGSizeMake(20, 20);
+    self.currentSize = CGSizeMake(10, 10);
     /**
      *  page的整体高度
      */

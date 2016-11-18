@@ -32,7 +32,7 @@
     MKpageStyle *myStytle = [[MKpageStyle alloc]init];
     myStytle.myPageStyle = MKpageStyleLocationBottom;
     myStytle.pageHeight = 30;
-    myStytle.myDotStyle = MKDotStyleLocationCenter;
+    myStytle.myDotStyle = MKDotStyleLocationRight;
     myStytle.backGroundColor = [UIColor clearColor];
     myStytle.styleTextColor = [UIColor whiteColor];
     myStytle.currentTextColor = [UIColor greenColor];
