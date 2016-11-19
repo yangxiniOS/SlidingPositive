@@ -3,9 +3,8 @@
 
 
 
-![image](https://github.com/yangxiniOS/SlidingPositive/blob/master/shufflingDemo/演示2.gif)
+![image](https://github.com/yangxiniOS/SlidingPositive/blob/master/shufflingDemo/演示.gif)
 
-![image](https://github.com/yangxiniOS/SlidingPositive/blob/8d865fc0f785ae5d5ea82a6d5341e44a5849c23a/shufflingDemo/演示.gif)
 
 
 支持图片轮播，文字轮播，正反序，水平竖直方向只需要赋值调用即可，即可实现无限轮播
