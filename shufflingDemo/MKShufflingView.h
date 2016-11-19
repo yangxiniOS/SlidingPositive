@@ -64,6 +64,10 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  */
 @property (nonatomic,assign) BOOL isUrlImage;
 /**
+ *  如果是文字轮播文字颜色
+ */
+@property (nonatomic,strong) UIColor *textColor;
+/**
  *  设置请求图片展位图
  */
 @property (nonatomic,strong)UIImage *placeholderImage;

@@ -31,6 +31,10 @@
      */
     self.roundedCorners = 5.f;
     /**
+     *  选中圆角大小
+     */
+    self.currentRoundedCorners = 5.f;
+    /**
      *  文本距离边界多少 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
      */
     self.border = 12;
@@ -90,5 +94,9 @@
      *  文本颜色 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
      */
     self.titleColor = [UIColor whiteColor];
+    /**
+     *  只有设置圆点格式为MKDotStyleText有效 设置文本大小
+     */
+    self.fount = 14;
 }
 @end
