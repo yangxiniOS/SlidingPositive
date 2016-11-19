@@ -15,7 +15,6 @@
 		0D2F468B1DDDAB4D0075AF07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F46891DDDAB4D0075AF07 /* LaunchScreen.storyboard */; };
 		0D2F46961DDDAB4D0075AF07 /* shufflingDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F46951DDDAB4D0075AF07 /* shufflingDemoTests.m */; };
 		0D2F46A21DDDAB7A0075AF07 /* MKShufflingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F46A11DDDAB7A0075AF07 /* MKShufflingView.m */; };
-		0D2F46A41DDDBDF50075AF07 /* 演示.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F46A31DDDBDF50075AF07 /* 演示.gif */; };
 		0D2F47051DDDEE390075AF07 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F46E71DDDEE380075AF07 /* NSData+ImageContentType.m */; };
 		0D2F47061DDDEE390075AF07 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F46E91DDDEE380075AF07 /* SDImageCache.m */; };
 		0D2F47071DDDEE390075AF07 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F46EB1DDDEE380075AF07 /* SDWebImageCompat.m */; };
@@ -32,7 +31,9 @@
 		0D2F47121DDDEE390075AF07 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47021DDDEE390075AF07 /* UIImageView+WebCache.m */; };
 		0D2F47131DDDEE390075AF07 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47041DDDEE390075AF07 /* UIView+WebCacheOperation.m */; };
 		0D2F47161DDE96640075AF07 /* MKpageStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F47151DDE96640075AF07 /* MKpageStyle.m */; };
-		0D2F47181DDF75950075AF07 /* 演示2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F47171DDF75950075AF07 /* 演示2.gif */; };
+		0D2F471A1DE011D40075AF07 /* favorites-filling-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F47191DE011D40075AF07 /* favorites-filling-2.png */; };
+		0D2F471C1DE011F00075AF07 /* favorites-filling.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F471B1DE011F00075AF07 /* favorites-filling.png */; };
+		0D2F471E1DE017BF0075AF07 /* 演示.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F471D1DE017BF0075AF07 /* 演示.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +62,6 @@
 		0D2F46971DDDAB4D0075AF07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D2F46A01DDDAB7A0075AF07 /* MKShufflingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKShufflingView.h; sourceTree = "<group>"; };
 		0D2F46A11DDDAB7A0075AF07 /* MKShufflingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKShufflingView.m; sourceTree = "<group>"; };
-		0D2F46A31DDDBDF50075AF07 /* 演示.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "演示.gif"; sourceTree = "<group>"; };
 		0D2F46E61DDDEE380075AF07 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		0D2F46E71DDDEE380075AF07 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		0D2F46E81DDDEE380075AF07 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -95,7 +95,9 @@
 		0D2F47041DDDEE390075AF07 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		0D2F47141DDE96640075AF07 /* MKpageStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKpageStyle.h; sourceTree = "<group>"; };
 		0D2F47151DDE96640075AF07 /* MKpageStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKpageStyle.m; sourceTree = "<group>"; };
-		0D2F47171DDF75950075AF07 /* 演示2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "演示2.gif"; sourceTree = "<group>"; };
+		0D2F47191DE011D40075AF07 /* favorites-filling-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorites-filling-2.png"; sourceTree = "<group>"; };
+		0D2F471B1DE011F00075AF07 /* favorites-filling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorites-filling.png"; sourceTree = "<group>"; };
+		0D2F471D1DE017BF0075AF07 /* 演示.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "演示.gif"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,9 +151,10 @@
 				0D2F46841DDDAB4D0075AF07 /* Main.storyboard */,
 				0D2F46871DDDAB4D0075AF07 /* Assets.xcassets */,
 				0D2F46891DDDAB4D0075AF07 /* LaunchScreen.storyboard */,
+				0D2F471D1DE017BF0075AF07 /* 演示.gif */,
 				0D2F468C1DDDAB4D0075AF07 /* Info.plist */,
-				0D2F46A31DDDBDF50075AF07 /* 演示.gif */,
-				0D2F47171DDF75950075AF07 /* 演示2.gif */,
+				0D2F47191DE011D40075AF07 /* favorites-filling-2.png */,
+				0D2F471B1DE011F00075AF07 /* favorites-filling.png */,
 				0D2F467B1DDDAB4D0075AF07 /* Supporting Files */,
 			);
 			path = shufflingDemo;
@@ -292,10 +295,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D2F47181DDF75950075AF07 /* 演示2.gif in Resources */,
-				0D2F46A41DDDBDF50075AF07 /* 演示.gif in Resources */,
+				0D2F471A1DE011D40075AF07 /* favorites-filling-2.png in Resources */,
 				0D2F468B1DDDAB4D0075AF07 /* LaunchScreen.storyboard in Resources */,
 				0D2F46881DDDAB4D0075AF07 /* Assets.xcassets in Resources */,
+				0D2F471E1DE017BF0075AF07 /* 演示.gif in Resources */,
+				0D2F471C1DE011F00075AF07 /* favorites-filling.png in Resources */,
 				0D2F46861DDDAB4D0075AF07 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

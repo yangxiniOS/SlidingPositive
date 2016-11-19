@@ -74,6 +74,7 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
  *  居page边界多少 由myPageStyle决定  只针对对据左据右 居中时设置此值无效 默认为20
  */
 @property (nonatomic,assign)CGFloat constant;
+
 /**
  *  选中的圆点大小
  */
@@ -82,6 +83,10 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
  *  圆角大小
  */
 @property (nonatomic,assign)CGFloat roundedCorners;
+/**
+ *  选中圆角大小
+ */
+@property (nonatomic,assign)CGFloat currentRoundedCorners;
 /**
  *  文本距离边界多少 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
  */
@@ -150,7 +155,13 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
  *  文本颜色 显示文本 目前只支持pageControl 居上下且原点局左右 设置有效
  */
 @property (nonatomic,strong)UIColor *titleColor;
-
-
+/**
+ *  设置此值标示当前指示器是对应的文本 只有设置圆点格式为MKDotStyleText有效
+ */
+@property (nonatomic,strong)NSArray *titleArray;
+/**
+ *  只有设置圆点格式为MKDotStyleText有效 设置文本大小
+ */
+@property (nonatomic,assign)CGFloat fount;
 
 @end
