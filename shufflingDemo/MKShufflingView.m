@@ -445,18 +445,18 @@
     if (self.mypageStyle.myDotStyle == MKDotStyleLocationRight ) {
         self.dotArray = a;
     }
-    UIButton *button = self.dotArray.firstObject;
+    UIButton *button1 = self.dotArray.firstObject;
     if (self.mypageStyle.myPageStyle == MKpageStyleLocationBottom
         ||self.mypageStyle.myPageStyle == MKpageStyleLocationUp) {
         if (self.mypageStyle.myDotStyle == MKDotStyleLocationCenter) {
-            self.myLayoutConstraint1.constant = -((self.textArray.count) * button.bounds.size.width + (self.textArray.count)* self.mypageStyle.spacingValue)/2;
+            self.myLayoutConstraint1.constant = -((self.textArray.count) * button1.bounds.size.width + (self.textArray.count - 1)* self.mypageStyle.spacingValue + button1.bounds.size.width/2)/2 ;
         }
         [self addTitileView];
     }
     if (self.mypageStyle.myPageStyle == MKpageStyleLocationRight
         ||self.mypageStyle.myPageStyle == MKpageStyleLocationLeft) {
         if (self.mypageStyle.myDotStyle == MKDotStyleLocationCenter) {
-            self.myLayoutConstraint2.constant = -((self.textArray.count - 1) * button.bounds.size.height + (self.textArray.count - 1) * self.mypageStyle.spacingValue)/2;
+            self.myLayoutConstraint2.constant = -((self.textArray.count - 1) * button1.bounds.size.height + (self.textArray.count - 1) * self.mypageStyle.spacingValue )/2;
         }
     }
 }
