@@ -240,9 +240,12 @@
     shufflingView6.isAutomatic = NO;
     shufflingView6.MYslidingPositiveOrNegative = slidingPositive;
     shufflingView6.MYslidingDirection = slidingDirectionH;
+    shufflingView6.slidingOverBlock = ^(NSInteger selected){
+        NSLog(@"%ld",selected);
+    };
     [shufflingView6 initShufflingView:^(NSInteger selected) {
-                NSLog(@"%ld",selected);
-            }];
+        NSLog(@"%ld",selected);
+    }];
     [self.view addSubview:shufflingView6];
 }
 

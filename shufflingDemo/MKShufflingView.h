@@ -155,7 +155,5 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
 
 @interface MKGetView : UIView
 
-
-
 @end
 
