@@ -30,12 +30,24 @@
 @property (nonatomic,copy)void (^myFuntion)(NSInteger selected);
 
 @property (nonatomic,strong)MKMyPageControl *myPageControl;
+
 @end
 
 
 
 
 @implementation MKShufflingView
+
+- (void)dealloc{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+- (void)removeFromSuperview{
+    [super removeFromSuperview];
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
 - (UIButton *)topButton{
     if (!_topButton) {
         self.topButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -78,7 +90,7 @@
     [self addtimer];
     [self addMyGestureRecognizer];
     if (completion) {
-        self.myFuntion = completion;
+        _myFuntion = completion;
     }
 }
 
@@ -113,6 +125,7 @@
         __weak typeof(self) weakSelf = self;
         self.myPageControl.myFunction = ^(BOOL isSequence){
             [weakSelf.timer invalidate];
+            weakSelf.timer = nil;
             if (isSequence) {
                 weakSelf.selected ++;
                 [weakSelf subviewSliding:YES];
@@ -189,6 +202,7 @@
 -(void)handleSwipeFrom:(UIPanGestureRecognizer *)panGesture{
     CGPoint point = [panGesture translationInView:self];
     [self.timer invalidate];
+    self.timer = nil;
     self.topLayoutConstraint.constant =self.MYslidingDirection == slidingDirectionV? point.y:point.x;
     if ((self.MYslidingDirection == slidingDirectionV?fabs(point.y):fabs(point.x)) > (self.MYslidingDirection == slidingDirectionV? self.bounds.size.height/3:self.bounds.size.width/3)) {
         if (panGesture.state == UIGestureRecognizerStateEnded) {
@@ -217,11 +231,20 @@
 - (void)addtimer{
     if (!self.isAutomatic) {
         [self.timer invalidate];
+        self.timer = nil;
         return;
     }
-    if (!self.timer.valid && self.isAutomatic) {
-        self.timer = [NSTimer timerWithTimeInterval:self.countdown?self.countdown:5 target:self selector:@selector(startTheAnimation:) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    if (!self.timer && self.isAutomatic) {
+//以下是两种解决nstimer没有销毁的方法 原理是一样的 由于强指向导致nstimer的引用计数加一 当控制器销毁时nstimer没有被销毁就不会调用dealloc方法所以就是将强制性改为弱指向 而分类block也是用这种解决方式两种都行
+        __weak typeof(self) weakSelf = self;
+        self.timer = [NSTimer timerWithTimeInterval:weakSelf.countdown?weakSelf.countdown:5 target:weakSelf selector:@selector(startTheAnimation:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:weakSelf.timer forMode:NSDefaultRunLoopMode];
+        
+//        self.timer = [NSTimer ez_scheduledTimerWithTimeInterval:weakSelf.countdown?weakSelf.countdown:5 block:^{
+//            NSLog(@"nextPage");
+//            [weakSelf startTheAnimation];
+//        } repeats:YES];
+//        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
 }
 - (void)subviewSliding:(BOOL)isUp{

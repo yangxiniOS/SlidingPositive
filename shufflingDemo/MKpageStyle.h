@@ -180,3 +180,16 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
 
 
 @end
+
+
+
+
+
+
+@interface NSTimer (NSTimerExtention)
++ (NSTimer *)ez_scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)ez_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats;
++ (void)__executeTimerBlock:(NSTimer *)inTimer;
+@end
+
+

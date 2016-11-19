@@ -237,7 +237,7 @@
     shufflingView6.textArray = arr;
     shufflingView6.backgroundColor = [UIColor redColor];
     shufflingView6.MYshufflingViewShowstyle = shufflingViewShowstyleView;
-    shufflingView6.isAutomatic = NO;
+    shufflingView6.isAutomatic = YES;
     shufflingView6.MYslidingPositiveOrNegative = slidingPositive;
     shufflingView6.MYslidingDirection = slidingDirectionH;
     shufflingView6.slidingOverBlock = ^(NSInteger selected){
@@ -247,6 +247,11 @@
         NSLog(@"%ld",selected);
     }];
     [self.view addSubview:shufflingView6];
+}
+
+
+- (void)dealloc{
+    
 }
 
 - (void)didReceiveMemoryWarning {
