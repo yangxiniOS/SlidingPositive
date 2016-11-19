@@ -20,7 +20,11 @@ typedef NS_ENUM(NSInteger, shufflingViewShowstyle) {
     /**
      *  图片轮播形式
      */
-    shufflingViewShowstyleImageView
+    shufflingViewShowstyleImageView,
+    /**
+     *  自定义view形式
+     */
+    shufflingViewShowstyleView
 };
 /**
  *  滑动样式
@@ -72,7 +76,7 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
  */
 @property (nonatomic,strong)UIImage *placeholderImage;
 /**
- *  是否自动滚动 默认开启滚动
+ *  是否自动滚动 默认关闭滚动 为no
  */
 @property (nonatomic,assign) BOOL isAutomatic;
 /**
@@ -146,3 +150,12 @@ typedef NS_ENUM(NSInteger, slidingPositiveOrNegative) {
 @property (nonatomic,copy)void (^myFunction)(BOOL isSequence);
 - (void)initMKMyPageControlView;
 @end
+
+
+
+@interface MKGetView : UIView
+
+
+
+@end
+

@@ -162,7 +162,7 @@
         [_topButton setTitleColor:self.textColor forState:(UIControlStateNormal)];
         [_bottomButton setTitleColor:self.textColor forState:(UIControlStateNormal)];
         [_upButton setTitleColor:self.textColor forState:(UIControlStateNormal)];
-    }else{
+    }else if (self.MYshufflingViewShowstyle == shufflingViewShowstyleImageView){
         if (self.isUrlImage) {
             [self.topButton sd_setImageWithURL:[NSURL URLWithString:self.myTextArray[self.selected]] forState:(UIControlStateNormal) placeholderImage:self.placeholderImage];
             [self.bottomButton sd_setImageWithURL:[NSURL URLWithString:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1])] forState:(UIControlStateNormal)placeholderImage:self.placeholderImage];
@@ -173,7 +173,13 @@
             [self.bottomButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1])] forState:(UIControlStateNormal)];
             [self.upButton setImage:[UIImage imageNamed:self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1])] forState:(UIControlStateNormal)];
         }
+    }else if (self.MYshufflingViewShowstyle == shufflingViewShowstyleView){
+        self.topButton.extentionView =  (MKGetView *)self.myTextArray[self.selected];
+        self.bottomButton.extentionView = (MKGetView *)(self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]):(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]));
+        self.upButton.extentionView = (MKGetView *)(self.MYslidingPositiveOrNegative == slidingPositive ?(self.myTextArray[self.selected-1 < 0?self.myTextArray.count -1:self.selected-1]):(self.myTextArray[self.selected+1==self.myTextArray.count?0:self.selected+1]));
     }
+    
+    
 }
 - (void)addMyGestureRecognizer{
     UIPanGestureRecognizer *panGesture;
@@ -281,6 +287,9 @@
     NSArray *constraints6=[NSLayoutConstraint constraintsWithVisualFormat:self.MYslidingDirection == slidingDirectionV?@"V:[button(==width)]-0-[button1]":@"H:[button(==height)]-0-[button1]" options:0 metrics:@{@"width":@(self.bounds.size.height),@"height":@(self.bounds.size.width)} views:@{@"button":self.upButton,@"button1":self.topButton}];
     [self addConstraints:constraints5];
     [self addConstraints:constraints6];
+    [self.topButton layoutIfNeeded];
+    [self.bottomButton layoutIfNeeded];
+    [self.upButton layoutIfNeeded];
 }
 - (void)LayoutOfTheData{
 

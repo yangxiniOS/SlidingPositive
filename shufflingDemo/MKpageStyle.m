@@ -7,6 +7,9 @@
 //
 
 #import "MKpageStyle.h"
+#import "MKShufflingView.h"
+
+
 
 @implementation MKpageStyle
 
@@ -100,3 +103,33 @@
     self.fount = 14;
 }
 @end
+
+#import <objc/runtime.h>
+
+
+
+@class MKGetView;
+@implementation UIButton (UIbuttonExtention)
+
+
+
+static char *UIbuttonNameKey = "UIbuttonNameKey";
+- (void)setExtentionView:(UIView *)extentionView{
+    objc_setAssociatedObject(self, UIbuttonNameKey, extentionView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    for (MKGetView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
+    extentionView.userInteractionEnabled = NO;
+    extentionView.frame = self.bounds;
+    [self addSubview:extentionView];
+}
+- (UIView *)extentionView{
+    return objc_getAssociatedObject(self, UIbuttonNameKey);
+}
+
+@end
+
+
+
+
+

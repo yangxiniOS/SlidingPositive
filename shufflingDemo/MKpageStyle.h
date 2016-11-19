@@ -165,3 +165,18 @@ typedef NS_ENUM(NSInteger, MKDotFillStyle) {
 @property (nonatomic,assign)CGFloat fount;
 
 @end
+
+
+
+
+
+
+
+@interface UIButton (UIButtonExtention)
+
+
+
+@property (strong, nonatomic) UIView *extentionView;
+
+
+@end
